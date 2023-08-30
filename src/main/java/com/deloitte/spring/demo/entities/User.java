@@ -1,9 +1,14 @@
 package com.deloitte.spring.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -36,11 +41,12 @@ public class User {
     @Column(name = "SSN", length = 50, nullable = false, unique = true)
     private String ssn;
 
-    // No Argument Constructor
+    @OneToMany(mappedBy="user")
+    private List<Order> orders;
+
     public User() {
     }
 
-    // Fields Constructor
     public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn) {
         this.id = id;
         this.username = username;
@@ -51,7 +57,6 @@ public class User {
         this.ssn = ssn;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -108,7 +113,14 @@ public class User {
         this.ssn = ssn;
     }
 
-    // To String
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
