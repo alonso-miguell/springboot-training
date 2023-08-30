@@ -1,6 +1,7 @@
 package com.deloitte.spring.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends RepresentationModel {
 
     @Id
     @GeneratedValue
