@@ -63,6 +63,9 @@ public class User extends RepresentationModel {
     @JsonView(Views.Internal.class)
     private List<Order> orders;
 
+    @Column(name = "ADDRESS")
+    private String address;
+
     public User() {
     }
 
@@ -140,10 +143,19 @@ public class User extends RepresentationModel {
         this.orders = orders;
     }
 
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
-                + ", email=" + email + ", role=" + role + ", ssn=" + ssn + "]";
+    public String getAddress() {
+        return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    // To String
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname="
+                + lastname + ", email=" + email + ", role=" + role + ", ssn=" + ssn + ", orders=" + orders
+                + ", address=" + address + "]";
+    }
 }
