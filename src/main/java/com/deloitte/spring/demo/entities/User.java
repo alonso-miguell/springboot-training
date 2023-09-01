@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
@@ -25,13 +27,16 @@ import javax.validation.constraints.Size;
 
 //@JsonFilter(value = "userFilter")
 
+@ApiModel(description = "This model is to create a user")
 public class User extends RepresentationModel {
 
+    @ApiModelProperty(notes = " Auto generated unique id", required = true, position = 1)
     @Id
     @GeneratedValue
     @JsonView(Views.External.class)
     private Long id;
 
+    @ApiModelProperty(notes = "username should be in format flname", example = "kreddy", required = false, position = 2)
     @NotEmpty(message = "Username is Mandatory field. Please provide username")
     @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
     @JsonView(Views.External.class)

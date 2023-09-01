@@ -8,6 +8,8 @@ import com.deloitte.spring.demo.exceptions.UserExistsException;
 import com.deloitte.spring.demo.exceptions.UserNameNotFoundException;
 import com.deloitte.spring.demo.exceptions.UserNotFoundException;
 import com.deloitte.spring.demo.services.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,12 +25,14 @@ import javax.validation.constraints.Min;
 @RestController
 @Validated
 @RequestMapping(value = "/users")
+@Api(tags = "User Management RESTful Services", value = "UserController", description = "Controller for User Management Service")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping
+    @ApiOperation(value = "Retrieve list of users")
     public List<User> getAllUsers() {
 
         return userService.getAllUsers();
@@ -36,6 +40,7 @@ public class UserController {
     }
 
     @PostMapping
+    @ApiOperation(value = "Creates a new user")
     public ResponseEntity<Void> createUser(@Valid @RequestBody User user, UriComponentsBuilder builder) {
         try {
             userService.createUser(user);
@@ -50,10 +55,11 @@ public class UserController {
 
 
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable("id") @Min(1) Long id) {
+    public User getUserById(@PathVariable("id") @Min(1) Long id) {
 
         try {
-            return userService.getUserById(id);
+            Optional<User> userOptional =  userService.getUserById(id);
+            return userOptional.get();
         } catch (UserNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
         }
