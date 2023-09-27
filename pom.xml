@@ -107,6 +107,25 @@
 			<version>2.7.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-jmx</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-core</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+
+<!--		Dependency needed for appOptics metrics and also adding configuration class is needed-->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-appoptics</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
